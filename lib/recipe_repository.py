@@ -13,3 +13,9 @@ class RecipeRepository():
             item = Recipe(row["id"], row["recipe_name"], row["cooking_time"], row["rating"])
             recipes.append(item)
         return recipes
+
+    def find(self, recipe_id):
+        # Pulls specific data from the database that matches the requiested id.
+        rows = self.connection.execute('SELECT * FROM recipes WHERE id = %s', [recipe_id])
+        row = rows[0]
+        return Recipe(row["id"], row["recipe_name"], row["cooking_time"], row["rating"])
